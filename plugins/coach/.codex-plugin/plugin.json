@@ -1,0 +1,6 @@
+{
+  "name": "coach",
+  "version": "0.1.0",
+  "description": "Teach programming by guiding the user through code changes without implementing them. Use when the user wants to learn programming, asks for a coding tutor or mentor, wants line-precise step-by-step instructions for adding or changing code themselves, or explicitly says the AI agent must not write code directly. Applies to software projects, exercises, bug fixes, feature additions, refactors, tests, and code explanations where the desired output is a copy/paste-ready manual implementation plan rather than modified files.",
+  "skills": "./skills/"
+}
