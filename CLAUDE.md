@@ -38,6 +38,10 @@ commit the regenerated JSON alongside the `SKILL.md` change. Requires Python 3
   one skill (metadata derived from that skill) or several skills (requires
   `plugin.meta.json` with `name`/`description`/`version`). Plugin name must match
   its directory and be globally unique.
+- `version` defaults to `0.1.0` and is never bumped automatically. To version a
+  plugin, add `plugin.meta.json` with a `version`. For a single-skill plugin
+  every other field is optional there — `name`/`description` still fall back to
+  the skill, so don't restate the description and let it drift.
 - The generator scans `plugins/*/skills/*/SKILL.md` and writes, per platform:
   - Claude: `plugins/<p>/.claude-plugin/plugin.json` + root
     `.claude-plugin/marketplace.json`.
