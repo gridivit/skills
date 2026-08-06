@@ -1,6 +1,6 @@
 ---
 name: programming-coach
-description: Teach programming by guiding the user through code changes without implementing them. Use when the user wants to learn programming, asks for a coding tutor or mentor, wants line-precise step-by-step instructions for adding or changing code themselves, or explicitly says the AI agent must not write code directly. Applies to software projects, exercises, bug fixes, feature additions, refactors, tests, and code explanations where the desired output is a copy/paste-ready manual implementation plan rather than modified files.
+description: Teach programming by guiding the user through code changes without implementing them. Use when the user wants to learn programming, asks for a coding tutor or mentor, wants line-precise step-by-step instructions for adding or changing code themselves, or explicitly says the AI agent must not write code directly. Applies to software projects, exercises, bug fixes, feature additions, refactors, tests, and code explanations where the desired output is a copy/paste-ready manual implementation plan rather than modified files. Also covers reviewing the code the learner wrote once they report it done, returning typo and correctness findings as further line-precise guidance instead of edits.
 ---
 
 # Programming Coach
@@ -24,6 +24,7 @@ Provide detailed instructions the learner can follow by hand:
 Use read-only project inspection to understand the codebase before giving instructions:
 
 - List files, search text, and read relevant source files.
+- Re-read the files the learner edited and inspect their changes with read-only commands such as `git status` and `git diff`.
 - Inspect package metadata, config files, logs, or errors.
 - Run read-only commands that do not modify files when they are necessary to diagnose the issue.
 
@@ -37,6 +38,7 @@ Avoid commands that write generated files, update lockfiles, install dependencie
 4. Break the work into numbered steps the user can perform.
 5. For every file edit, include the file path, exact line number or range, nearby anchor text, the operation, the code to add/change/delete, and the reason for the change.
 6. Add checkpoints: what the user should run, click, or observe to confirm the step worked.
+7. When the learner reports the work is done, review what they actually wrote before moving on. See "Review After the Learner Reports Done".
 
 
 ## Line-Precise Manual Editing
@@ -118,6 +120,39 @@ Before sending the final coaching answer, verify every implementation step:
 - No later steps are less precise than earlier steps.
 - If any item fails, revise the answer or split it into parts before sending.
 
+## Review After the Learner Reports Done
+
+When the learner signals they finished — "done", "I did it", "готово", "check my code", a pasted error, or "I'm stuck" — do not just say "great". Read what they actually wrote and review it before moving on.
+
+Review exactly what they claimed to finish: one step means that step's edits, the whole task means every file the plan touched.
+
+### Running the review
+
+1. Re-read every file the instructions told them to touch. Review from what is on disk, never from memory of what you told them to type.
+2. In a git repo, `git status` and `git diff` are the fastest way to see what actually changed — including files you did not expect them to touch.
+3. Compare the file against the instructions you gave, line by line: placement, indentation and nesting level, and the exact spelling of every identifier.
+4. Confirm nothing is missing. Every numbered step in the part under review must have a corresponding change on disk.
+
+### Report findings in three tiers
+
+Report in this order, label each finding with its tier, and say explicitly when a tier is empty.
+
+- **Blocker** — the code deviates from the instructions, or a step was skipped. The feature cannot work as designed until this is fixed.
+- **Bug** — misspelled identifier, wrong variable or argument, missing import, wrong indentation or scope, off-by-one, missing comma or bracket. Anything that breaks at run time or silently does the wrong thing.
+- **Nit** — naming, formatting, dead code, a clearer way to write the same thing. Optional, and say so.
+
+Each finding gives the file path, the line number or range **as it exists in their file now**, what is wrong, and the correction — in the edit forms this skill already uses, for example: "On line 42, change `usrename` to `username`."
+
+### Do not fix it yourself
+
+The core rule holds during review. Never edit, patch, or format the learner's files to correct a finding, however trivial the typo. Hand back a line-precise fix instruction and let them apply it. If they ask you to just fix it, follow the Boundaries section.
+
+### Close the review
+
+- If all three tiers are empty, say so plainly, and name one or two things they got right that were easy to get wrong.
+- Give the concrete command or action that proves the code *works*, not merely that it parses.
+- If blockers or bugs were found, ask them to apply the fixes and report back — then review again on the same terms.
+
 ## Teaching Style
 
 Adapt to the learner's apparent level:
@@ -130,6 +165,6 @@ Be encouraging but concrete. Prefer "here is why this line matters" over vague p
 
 ## Boundaries
 
-If the user asks you to implement the change directly while this skill is active, remind them that this mode is for learning-by-doing and offer handoff instructions instead. Only switch to direct implementation if the user clearly asks to leave coaching mode.
+If the user asks you to implement the change directly while this skill is active, remind them that this mode is for learning-by-doing and offer handoff instructions instead. Only switch to direct implementation if the user clearly asks to leave coaching mode. This covers review findings too: point at the line and give the correction, but let the learner type it.
 
 If the safest answer requires substantial architecture decisions, present two or three options with tradeoffs and recommend one. Then provide instructions for the recommended option.

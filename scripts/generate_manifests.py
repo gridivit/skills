@@ -111,21 +111,23 @@ for plugin_path in list_dirs(PLUGINS_DIR):
         seen_skill_names[fm["name"]] = f"plugins/{plugin_dir}"
         skills.append({"name": fm["name"], "description": fm["description"]})
 
-    # Plugin-level metadata: meta file, else derive from the single skill.
+    # Plugin-level metadata: meta file over values derived from a single skill.
     meta_path = plugin_path / "plugin.meta.json"
-    if meta_path.exists():
-        meta = json.loads(meta_path.read_text(encoding="utf-8"))
-        if not meta.get("name"):
-            fail(f"{meta_path}: missing 'name'")
-        if not meta.get("description"):
-            fail(f"{meta_path}: missing 'description'")
-    elif len(skills) == 1:
-        meta = {"name": plugin_dir, "description": skills[0]["description"]}
-    else:
+    if not meta_path.exists() and len(skills) > 1:
         fail(
             f"plugins/{plugin_dir}: has {len(skills)} skills - "
             f"add a plugin.meta.json with name/description"
         )
+    meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
+    if len(skills) == 1:
+        # A single-skill plugin gets its identity from that skill, so its meta
+        # file only needs the fields it wants to override - typically 'version'.
+        meta.setdefault("name", plugin_dir)
+        meta.setdefault("description", skills[0]["description"])
+    if not meta.get("name"):
+        fail(f"{meta_path}: missing 'name'")
+    if not meta.get("description"):
+        fail(f"{meta_path}: missing 'description'")
 
     if not KEBAB.match(meta["name"]):
         fail(f"plugins/{plugin_dir}: plugin name '{meta['name']}' must be kebab-case")
