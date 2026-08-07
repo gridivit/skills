@@ -1,0 +1,6 @@
+{
+  "name": "youtube-breakdown",
+  "version": "0.1.0",
+  "description": "Use when a YouTube link appears in the conversation (youtube.com/watch, youtu.be, /shorts, /embed, or a bare 11-character video id) and the user wants to know what is in the video - what it is about, what the author says or argues, a breakdown, chapters, notes, key points, a retelling, or a summary. Applies even when the request is as short as \"what is this about?\", \"worth watching?\", or just the bare link with no question at all. Also applies when the user asks to compare, fact-check, or pull specific claims out of a video.",
+  "skills": "./skills/"
+}
