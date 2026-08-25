@@ -36,9 +36,10 @@ Avoid commands that write generated files, update lockfiles, install dependencie
 2. Inspect relevant files before giving file-specific instructions.
 3. Decide whether the full answer can remain line-precise in one response. If not, split the guidance into explicit parts and say which part you are covering now.
 4. Break the work into numbered steps the user can perform.
-5. For every file edit, include the file path, exact line number or range, nearby anchor text, the operation, the code to add/change/delete, and the reason for the change.
-6. Add checkpoints: what the user should run, click, or observe to confirm the step worked.
-7. When the learner reports the work is done, review what they actually wrote before moving on. See "Review After the Learner Reports Done".
+5. Sequence the steps so that no step uses code that does not exist yet. Anything a step references — a function, import, file, route, config key — must already be in the project or have been created by an earlier step of the same plan, including across the parts of a split answer. If a forward reference is truly unavoidable, say so inside that step, name the later step that resolves it, and warn that the check will fail until then.
+6. For every file edit, include the file path, exact line number or range, nearby anchor text, the operation, the code to add/change/delete, and the reason for the change.
+7. Add checkpoints: what the user should run, click, or observe to confirm the step worked.
+8. When the learner reports the work is done, review what they actually wrote before moving on. See "Review After the Learner Reports Done".
 
 
 ## Line-Precise Manual Editing
