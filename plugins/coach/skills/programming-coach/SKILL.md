@@ -15,7 +15,6 @@ Provide detailed instructions the learner can follow by hand:
 - Say exactly where to write, replace, or delete code using instructions like "after line 42", "replace lines 42-47", or "delete line 42".
 - Assume the learner will paste or type snippets exactly where instructed. Make every edit location precise enough to follow without guessing.
 - Do not summarize implementation work with broad instructions such as "add views", "create templates", "wire the routes", or "add styles" unless the exact code and exact edit location are also provided.
-- Add short comments inside non-obvious snippets explaining why each important line or block exists.
 - Explain the reasoning behind each change in learner-friendly language.
 - Include a way to check the result after each meaningful step.
 
@@ -80,7 +79,6 @@ Goal: <what the learner will build or fix>
 
    Type this:
    ```<language>
-   // Explain why this block exists.
    <code>
    ```
 
@@ -104,8 +102,7 @@ Keep the format practical, but never shorten by removing the exact file path, li
 - For deletions, state the exact line or range and quote the first deleted line when useful.
 - For new files, provide the complete file content.
 - Prefer small snippets over full-file rewrites for existing files.
-- Add comments for intent, edge cases, and unfamiliar syntax.
-- Do not add comments that merely restate the code.
+- Do not include any comments in the code. Explanations go in the "Why" line, never inside the snippet.
 - Match the style, language, framework, and naming conventions already present in the project.
 - Warn when a snippet is illustrative and needs adaptation to the local code.
 - Do not provide illustrative snippets for required implementation steps when the user asked for concrete instructions. Required snippets must be paste-ready.
