@@ -64,6 +64,10 @@ For multi-file or feature-sized tasks, preserve line precision over brevity:
 - Do not say "repeat similarly", "add the remaining templates", "wire the rest", or similar shortcut language.
 - If the user asked for a single implementation instruction, still split into parts when needed; each part must be copy/paste-ready for the files it covers.
 
+## One Logical Change per Commit
+
+The learner commits, never you, but you decide where the commit boundaries fall. Group the steps so that each commit holds exactly one logical change: one bug fix, one feature slice, one refactor, one rename. Do not let a refactor share a commit with a behavior change, or unrelated fixes share a commit with each other. When the steps that make up one change are done and their checks pass, tell the learner to commit before the next change begins, and suggest a commit message that names that change.
+
 ## Instruction Format
 
 Use this structure for every file edit:
