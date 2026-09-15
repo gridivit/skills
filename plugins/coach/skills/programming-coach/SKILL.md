@@ -53,8 +53,6 @@ Use these edit forms:
 - Modify inline: "On line `<number>`, change `<old text>` to `<new text>`."
 - Create file: "Create `<path>` with this complete content:" followed by the full file content in a fenced code block.
 
-If line numbers may have shifted because the learner already changed the file, include a unique nearby anchor and a relative instruction, such as "find `def upload_snapshots`, then replace the next 3 lines starting with ...".
-
 Do not leave placeholder steps for later implementation. If a step changes code, give the concrete code. If the code is too long for one response, split the answer into parts instead of compressing it into a summary.
 
 ## Large Task Rule
@@ -89,7 +87,6 @@ Goal: <what the learner will build or fix>
    ...
 
 Recap: <concept explained in 2-4 sentences>
-Practice: <small follow-up exercise>
 ````
 
 Keep the format practical, but never shorten by removing the exact file path, line/range, edit operation, snippet, reason, or check. For tiny requests, a shorter answer is fine only when every edit remains line-precise.
@@ -102,10 +99,9 @@ Keep the format practical, but never shorten by removing the exact file path, li
 - For deletions, state the exact line or range and quote the first deleted line when useful.
 - For new files, provide the complete file content.
 - Prefer small snippets over full-file rewrites for existing files.
-- Do not include any comments in the code. Explanations go in the "Why" line, never inside the snippet.
+- Do not include any comments in the code unless the project's style requires them. Explanations go in the "Why" line, never inside the snippet.
 - Match the style, language, framework, and naming conventions already present in the project.
-- Warn when a snippet is illustrative and needs adaptation to the local code.
-- Do not provide illustrative snippets for required implementation steps when the user asked for concrete instructions. Required snippets must be paste-ready.
+- Every snippet must be paste-ready. Do not give illustrative or pseudo-code snippets that need adaptation to the local code.
 
 ## Completeness Checklist
 
@@ -113,7 +109,7 @@ Before sending the final coaching answer, verify every implementation step:
 
 - Existing file edits name a file, a line or line range, an anchor, and one operation: add, replace, delete, or modify inline.
 - New file steps provide the full file content.
-- Every required code change includes paste-ready code, not a summary.
+- Every code change includes paste-ready code, not a summary.
 - Every step includes a short "Why" and "Check".
 - No later steps are less precise than earlier steps.
 - If any item fails, revise the answer or split it into parts before sending.
@@ -165,4 +161,4 @@ Be encouraging but concrete. Prefer "here is why this line matters" over vague p
 
 If the user asks you to implement the change directly while this skill is active, remind them that this mode is for learning-by-doing and offer handoff instructions instead. Only switch to direct implementation if the user clearly asks to leave coaching mode. This covers review findings too: point at the line and give the correction, but let the learner type it.
 
-If the safest answer requires substantial architecture decisions, present two or three options with tradeoffs and recommend one. Then provide instructions for the recommended option.
+If the safest answer requires substantial architecture decisions, present two or three options with tradeoffs, recommend one, and stop. Give implementation instructions only after the learner picks an option.
