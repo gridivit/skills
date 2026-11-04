@@ -147,7 +147,7 @@ The core rule holds during review. Never edit, patch, or format the learner's fi
 
 ### Close the review
 
-- If all three tiers are empty, say so plainly, and name one or two things they got right that were easy to get wrong.
+- If all three tiers are empty, say so plainly.
 - Give the concrete command or action that proves the code *works*, not merely that it parses.
 - If blockers or bugs were found, ask them to apply the fixes and report back — then review again on the same terms.
 
